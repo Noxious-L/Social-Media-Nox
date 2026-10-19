@@ -39,7 +39,7 @@
       width: 100%;
       max-width: 420px;
       border-radius: 26px;
-      padding: 2px; /* Border thickness for the neon gradient */
+      padding: 2px;
       background: linear-gradient(135deg, #00f2fe, #4facfe, #00f2fe, #6b11ff);
       background-size: 300% 300%;
       animation: neonGlow 6s ease infinite;
@@ -64,9 +64,9 @@
 
     .card {
       width: 100%;
-      max-height: calc(100vh - 36px); /* Ensures full card fits without scrolling */
+      max-height: calc(100vh - 36px);
       text-align: center;
-      padding: 24px 20px;
+      padding: 22px 18px;
       border-radius: 24px;
       background: #121216;
       
@@ -77,33 +77,36 @@
     }
 
     .profile-pic {
-      width: clamp(70px, 17vh, 105px);
-      height: clamp(70px, 17vh, 105px);
+      width: clamp(60px, 15vh, 95px);
+      height: clamp(60px, 15vh, 95px);
       object-fit: cover;
       border-radius: 50%;
       border: 2px solid rgba(255, 255, 255, 0.8);
       box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
-      margin-bottom: 12px;
+      margin-bottom: 8px;
       flex-shrink: 0;
+      transition: all 0.3s ease;
     }
 
     h1 {
-      font-size: clamp(20px, 3.8vh, 26px);
-      margin-bottom: 4px;
+      font-size: clamp(18px, 3.4vh, 24px);
+      margin-bottom: 2px;
       letter-spacing: 0.5px;
+      transition: all 0.3s ease;
     }
 
     .username {
       color: #9494a0;
-      font-size: clamp(13px, 2.3vh, 15px);
-      margin-bottom: 18px;
+      font-size: clamp(12px, 2.1vh, 14px);
+      margin-bottom: 14px;
+      transition: all 0.3s ease;
     }
 
     .social-links {
       width: 100%;
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 10px;
     }
 
     /* Standard Button Base */
@@ -112,15 +115,14 @@
       align-items: center;
       justify-content: center;
       width: 100%;
-      padding: clamp(10px, 1.9vh, 14px) 16px;
+      padding: clamp(8px, 1.6vh, 12px) 16px;
       border-radius: 14px;
       background: #1d1d24;
       color: #ffffff;
       text-decoration: none;
       
-      /* Stylish "Hook" / Display Font */
       font-family: 'Bungee', cursive;
-      font-size: clamp(14px, 2.3vh, 17px);
+      font-size: clamp(13px, 2.1vh, 16px);
       letter-spacing: 1.5px;
       text-transform: uppercase;
       
@@ -128,47 +130,142 @@
       transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
 
-    /* Individual Brand Highlights & Hover FX */
+    /* Brand Hover Effects */
     .social-links a.facebook:hover {
       background: #1877f2;
       border-color: #1877f2;
       box-shadow: 0 0 20px rgba(24, 119, 242, 0.5);
-      transform: translateY(-3px) scale(1.02);
+      transform: translateY(-2px) scale(1.02);
     }
 
     .social-links a.instagram:hover {
       background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
       border-color: #dc2743;
       box-shadow: 0 0 20px rgba(220, 39, 67, 0.5);
-      transform: translateY(-3px) scale(1.02);
+      transform: translateY(-2px) scale(1.02);
     }
 
     .social-links a.tiktok:hover {
       background: #000000;
       border-color: #ff0050;
       box-shadow: -3px 3px 18px rgba(255, 0, 80, 0.6), 3px -3px 18px rgba(0, 242, 234, 0.6);
-      transform: translateY(-3px) scale(1.02);
+      transform: translateY(-2px) scale(1.02);
+    }
+
+    /* Interactive Dropdown Image Gallery Container */
+    .image-dropdown-container {
+      width: 100%;
+      margin-top: 12px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* Toggle Button ("View Images") */
+    .view-images-btn {
+      background: none;
+      border: none;
+      color: #00f2fe;
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      padding: 4px 10px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: color 0.2s ease, transform 0.2s ease;
+    }
+
+    .view-images-btn:hover {
+      color: #4facfe;
+      transform: translateY(-1px);
+    }
+
+    .view-images-btn span {
+      font-size: 10px;
+      transition: transform 0.3s ease;
+    }
+
+    /* Collapsible Gallery Box */
+    .gallery-box {
+      width: 100%;
+      max-height: 0;
+      overflow-y: auto;
+      overflow-x: hidden;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      transition: max-height 0.35s ease-in-out, padding 0.35s ease-in-out;
+      padding: 0 4px;
+      border-radius: 12px;
+      scrollbar-width: thin;
+      scrollbar-color: #4facfe #1d1d24;
+    }
+
+    /* Active state when expanded */
+    .gallery-box.expanded {
+      max-height: 180px; /* Adjust height limit to keep within card view without overflow */
+      padding: 8px 4px;
+      margin-top: 8px;
+      background: rgba(29, 29, 36, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    /* Custom Scrollbar for Gallery */
+    .gallery-box::-webkit-scrollbar {
+      width: 5px;
+    }
+    .gallery-box::-webkit-scrollbar-track {
+      background: #121216;
+      border-radius: 10px;
+    }
+    .gallery-box::-webkit-scrollbar-thumb {
+      background: #4facfe;
+      border-radius: 10px;
+    }
+
+    /* Landscape Image Styling */
+    .landscape-img {
+      width: 100%;
+      height: 95px;
+      object-fit: cover;
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+      flex-shrink: 0;
     }
 
     footer {
-      margin-top: 16px;
+      margin-top: 12px;
       color: #666670;
-      font-size: 12px;
+      font-size: 11px;
+      transition: all 0.3s ease;
+    }
+
+    /* When gallery is open, compact top elements slightly to stay completely scrollbar-free */
+    .card.gallery-open .profile-pic {
+      width: clamp(50px, 12vh, 75px);
+      height: clamp(50px, 12vh, 75px);
+      margin-bottom: 4px;
+    }
+    .card.gallery-open h1 {
+      font-size: clamp(16px, 2.8vh, 20px);
+    }
+    .card.gallery-open .username {
+      margin-bottom: 8px;
+    }
+    .card.gallery-open .social-links {
+      gap: 6px;
     }
 
     /* Extra tight layout for low-height screen viewports */
-    @media (max-height: 550px) {
+    @media (max-height: 580px) {
       .card {
         padding: 14px;
       }
-      .username {
-        margin-bottom: 10px;
-      }
-      .social-links {
-        gap: 8px;
-      }
-      footer {
-        margin-top: 10px;
+      .gallery-box.expanded {
+        max-height: 130px;
       }
     }
   </style>
@@ -178,7 +275,7 @@
 
   <!-- Animated Outer Neon Wrapper -->
   <div class="card-wrapper">
-    <main class="card">
+    <main class="card" id="mainCard">
 
       <!-- PROFILE PICTURE -->
       <img
@@ -193,7 +290,7 @@
       <!-- USERNAME / BIO -->
       <p class="username">BSIT 2A</p>
 
-      <!-- SOCIAL LINKS WITH HOOK FONT & BRAND HOVER EFFECTS -->
+      <!-- SOCIAL LINKS -->
       <div class="social-links">
 
         <a href="https://www.facebook.com/share/1BrXs4q9kU/" target="_blank" class="facebook">
@@ -210,12 +307,48 @@
 
       </div>
 
+      <!-- VIEW IMAGES DROPDOWN SECTION -->
+      <div class="image-dropdown-container">
+        <button class="view-images-btn" id="toggleGalleryBtn" onclick="toggleGallery()">
+          View Images <span id="arrowIcon">▼</span>
+        </button>
+
+        <div class="gallery-box" id="galleryBox">
+          <!-- CHANGE OR ADD YOUR LANDSCAPE IMAGES HERE -->
+          <img src="image1.jpg" alt="Gallery Image 1" class="landscape-img">
+          <img src="image2.jpg" alt="Gallery Image 2" class="landscape-img">
+          <img src="image3.jpg" alt="Gallery Image 3" class="landscape-img">
+        </div>
+      </div>
+
       <footer>
         © 2026 Nox
       </footer>
 
     </main>
   </div>
+
+  <script>
+    function toggleGallery() {
+      const galleryBox = document.getElementById('galleryBox');
+      const arrowIcon = document.getElementById('arrowIcon');
+      const mainCard = document.getElementById('mainCard');
+      const toggleBtn = document.getElementById('toggleGalleryBtn');
+
+      galleryBox.classList.toggle('expanded');
+      mainCard.classList.toggle('gallery-open');
+
+      const isExpanded = galleryBox.classList.contains('expanded');
+      
+      if (isExpanded) {
+        arrowIcon.style.transform = 'rotate(180deg)';
+        toggleBtn.innerHTML = 'Hide Images <span id="arrowIcon" style="transform: rotate(180deg); display: inline-block;">▲</span>';
+      } else {
+        arrowIcon.style.transform = 'rotate(0deg)';
+        toggleBtn.innerHTML = 'View Images <span id="arrowIcon" style="transform: rotate(0deg); display: inline-block;">▼</span>';
+      }
+    }
+  </script>
 
 </body>
 </html>
