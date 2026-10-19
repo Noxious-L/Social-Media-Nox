@@ -5,6 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Nox | Social Media</title>
 
+  <!-- Google Font: Bungee (Bold Hook Font) & Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+
   <style>
     * {
       box-sizing: border-box;
@@ -23,21 +28,47 @@
       justify-content: center;
       align-items: center;
       padding: 16px;
-      font-family: Arial, Helvetica, sans-serif;
-      background: #0f0f12;
+      font-family: 'Inter', sans-serif;
+      background: #08080a;
       color: #ffffff;
+    }
+
+    /* Animated Neon Card Wrapper */
+    .card-wrapper {
+      position: relative;
+      width: 100%;
+      max-width: 420px;
+      border-radius: 26px;
+      padding: 2px; /* Border thickness for the neon gradient */
+      background: linear-gradient(135deg, #00f2fe, #4facfe, #00f2fe, #6b11ff);
+      background-size: 300% 300%;
+      animation: neonGlow 6s ease infinite;
+      box-shadow: 0 0 25px rgba(0, 242, 254, 0.35),
+                  0 0 50px rgba(107, 17, 255, 0.25);
+    }
+
+    @keyframes neonGlow {
+      0% {
+        background-position: 0% 50%;
+        box-shadow: 0 0 25px rgba(0, 242, 254, 0.4), 0 0 50px rgba(79, 172, 254, 0.2);
+      }
+      50% {
+        background-position: 100% 50%;
+        box-shadow: 0 0 30px rgba(107, 17, 255, 0.5), 0 0 60px rgba(255, 0, 128, 0.3);
+      }
+      100% {
+        background-position: 0% 50%;
+        box-shadow: 0 0 25px rgba(0, 242, 254, 0.4), 0 0 50px rgba(79, 172, 254, 0.2);
+      }
     }
 
     .card {
       width: 100%;
-      max-width: 420px;
-      max-height: calc(100vh - 32px); /* Ensures the card never exceeds screen height */
+      max-height: calc(100vh - 36px); /* Ensures full card fits without scrolling */
       text-align: center;
       padding: 24px 20px;
       border-radius: 24px;
-      background: #18181d;
-      border: 1px solid #2b2b33;
-      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+      background: #121216;
       
       display: flex;
       flex-direction: column;
@@ -46,23 +77,25 @@
     }
 
     .profile-pic {
-      width: clamp(70px, 18vh, 110px);
-      height: clamp(70px, 18vh, 110px);
+      width: clamp(70px, 17vh, 105px);
+      height: clamp(70px, 17vh, 105px);
       object-fit: cover;
       border-radius: 50%;
-      border: 3px solid #ffffff;
+      border: 2px solid rgba(255, 255, 255, 0.8);
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
       margin-bottom: 12px;
       flex-shrink: 0;
     }
 
     h1 {
-      font-size: clamp(20px, 4vh, 26px);
+      font-size: clamp(20px, 3.8vh, 26px);
       margin-bottom: 4px;
+      letter-spacing: 0.5px;
     }
 
     .username {
-      color: #a7a7b0;
-      font-size: clamp(13px, 2.5vh, 15px);
+      color: #9494a0;
+      font-size: clamp(13px, 2.3vh, 15px);
       margin-bottom: 18px;
     }
 
@@ -70,43 +103,63 @@
       width: 100%;
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 12px;
     }
 
+    /* Standard Button Base */
     .social-links a {
       display: flex;
       align-items: center;
       justify-content: center;
       width: 100%;
-      padding: clamp(10px, 2vh, 14px) 16px;
-      border-radius: 13px;
-      background: #24242b;
+      padding: clamp(10px, 1.9vh, 14px) 16px;
+      border-radius: 14px;
+      background: #1d1d24;
       color: #ffffff;
       text-decoration: none;
-      font-size: clamp(14px, 2.2vh, 16px);
-      font-weight: 600;
-      transition: 0.2s ease;
+      
+      /* Stylish "Hook" / Display Font */
+      font-family: 'Bungee', cursive;
+      font-size: clamp(14px, 2.3vh, 17px);
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
 
-    .social-links a:hover {
-      transform: translateY(-2px);
-      background: #303039;
+    /* Individual Brand Highlights & Hover FX */
+    .social-links a.facebook:hover {
+      background: #1877f2;
+      border-color: #1877f2;
+      box-shadow: 0 0 20px rgba(24, 119, 242, 0.5);
+      transform: translateY(-3px) scale(1.02);
     }
 
-    .icon {
-      margin-right: 8px;
+    .social-links a.instagram:hover {
+      background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+      border-color: #dc2743;
+      box-shadow: 0 0 20px rgba(220, 39, 67, 0.5);
+      transform: translateY(-3px) scale(1.02);
+    }
+
+    .social-links a.tiktok:hover {
+      background: #000000;
+      border-color: #ff0050;
+      box-shadow: -3px 3px 18px rgba(255, 0, 80, 0.6), 3px -3px 18px rgba(0, 242, 234, 0.6);
+      transform: translateY(-3px) scale(1.02);
     }
 
     footer {
       margin-top: 16px;
-      color: #777780;
+      color: #666670;
       font-size: 12px;
     }
 
-    /* Extra tight layout for very small height screens */
+    /* Extra tight layout for low-height screen viewports */
     @media (max-height: 550px) {
       .card {
-        padding: 16px;
+        padding: 14px;
       }
       .username {
         margin-bottom: 10px;
@@ -123,44 +176,46 @@
 
 <body>
 
-  <main class="card">
+  <!-- Animated Outer Neon Wrapper -->
+  <div class="card-wrapper">
+    <main class="card">
 
-    <!-- CHANGE YOUR PROFILE PICTURE HERE -->
-    <img
-      class="profile-pic"
-      src="profile_id.jpg"
-      alt="Profile Picture"
-    >
+      <!-- PROFILE PICTURE -->
+      <img
+        class="profile-pic"
+        src="profile_id.jpg"
+        alt="Profile Picture"
+      >
 
-    <!-- CHANGE YOUR NAME HERE -->
-    <h1>Nox</h1>
+      <!-- NAME -->
+      <h1>Nox</h1>
 
-    <!-- CHANGE YOUR USERNAME/BIO HERE -->
-    <p class="username">BSIT 2A</p>
+      <!-- USERNAME / BIO -->
+      <p class="username">BSIT 2A</p>
 
-    <div class="social-links">
+      <!-- SOCIAL LINKS WITH HOOK FONT & BRAND HOVER EFFECTS -->
+      <div class="social-links">
 
-      <!-- CHANGE THE LINKS BELOW -->
+        <a href="https://www.facebook.com/share/1BrXs4q9kU/" target="_blank" class="facebook">
+          Facebook
+        </a>
 
-      <a href="https://www.facebook.com/share/1BrXs4q9kU/" target="_blank">
-        Facebook
-      </a>
+        <a href="https://www.instagram.com/nox.lloyd?dlrf=MWdtejZpNDI5cHo5dA==" target="_blank" class="instagram">
+          Instagram
+        </a>
 
-      <a href="https://www.instagram.com/nox.lloyd?dlrf=MWdtejZpNDI5cHo5dA==" target="_blank">
-        Instagram
-      </a>
+        <a href="https://tiktok.com/@noxaintbored" target="_blank" class="tiktok">
+          TikTok
+        </a>
 
-      <a href="https://tiktok.com/@noxaintbored" target="_blank">
-        TikTok
-      </a>
+      </div>
 
-    </div>
+      <footer>
+        © 2026 Nox
+      </footer>
 
-    <footer>
-      © 2026 Nox
-    </footer>
-
-  </main>
+    </main>
+  </div>
 
 </body>
 </html>
