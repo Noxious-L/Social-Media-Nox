@@ -12,12 +12,17 @@
       padding: 0;
     }
 
+    html, body {
+      height: 100%;
+      width: 100%;
+      overflow: hidden; /* Prevents scrollbars completely */
+    }
+
     body {
-      min-height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
-      padding: 30px 16px;
+      padding: 16px;
       font-family: Arial, Helvetica, sans-serif;
       background: #0f0f12;
       color: #ffffff;
@@ -26,49 +31,59 @@
     .card {
       width: 100%;
       max-width: 420px;
+      max-height: calc(100vh - 32px); /* Ensures the card never exceeds screen height */
       text-align: center;
-      padding: 35px 25px;
+      padding: 24px 20px;
       border-radius: 24px;
       background: #18181d;
       border: 1px solid #2b2b33;
       box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+      
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
     }
 
     .profile-pic {
-      width: 120px;
-      height: 120px;
+      width: clamp(70px, 18vh, 110px);
+      height: clamp(70px, 18vh, 110px);
       object-fit: cover;
       border-radius: 50%;
       border: 3px solid #ffffff;
-      margin-bottom: 18px;
+      margin-bottom: 12px;
+      flex-shrink: 0;
     }
 
     h1 {
-      font-size: 28px;
-      margin-bottom: 6px;
+      font-size: clamp(20px, 4vh, 26px);
+      margin-bottom: 4px;
     }
 
     .username {
       color: #a7a7b0;
-      font-size: 15px;
-      margin-bottom: 28px;
+      font-size: clamp(13px, 2.5vh, 15px);
+      margin-bottom: 18px;
     }
 
     .social-links {
+      width: 100%;
       display: flex;
       flex-direction: column;
-      gap: 13px;
+      gap: 10px;
     }
 
     .social-links a {
-      display: block;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       width: 100%;
-      padding: 15px 18px;
+      padding: clamp(10px, 2vh, 14px) 16px;
       border-radius: 13px;
       background: #24242b;
       color: #ffffff;
       text-decoration: none;
-      font-size: 16px;
+      font-size: clamp(14px, 2.2vh, 16px);
       font-weight: 600;
       transition: 0.2s ease;
     }
@@ -83,19 +98,24 @@
     }
 
     footer {
-      margin-top: 25px;
+      margin-top: 16px;
       color: #777780;
       font-size: 12px;
     }
 
-    @media (max-width: 480px) {
+    /* Extra tight layout for very small height screens */
+    @media (max-height: 550px) {
       .card {
-        padding: 30px 20px;
+        padding: 16px;
       }
-
-      .profile-pic {
-        width: 105px;
-        height: 105px;
+      .username {
+        margin-bottom: 10px;
+      }
+      .social-links {
+        gap: 8px;
+      }
+      footer {
+        margin-top: 10px;
       }
     }
   </style>
@@ -106,7 +126,6 @@
   <main class="card">
 
     <!-- CHANGE YOUR PROFILE PICTURE HERE -->
-    <!-- Put your image in the same folder and change the filename -->
     <img
       class="profile-pic"
       src="profile_id.jpg"
