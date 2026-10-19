@@ -205,7 +205,7 @@
 
     /* Active state when expanded */
     .gallery-box.expanded {
-      max-height: 180px; /* Adjust height limit to keep within card view without overflow */
+      max-height: 190px;
       padding: 8px 4px;
       margin-top: 8px;
       background: rgba(29, 29, 36, 0.6);
@@ -225,15 +225,17 @@
       border-radius: 10px;
     }
 
-    /* Landscape Image Styling */
+    /* Auto-Fit Landscape Image Styling */
     .landscape-img {
       width: 100%;
-      height: 95px;
-      object-fit: cover;
+      height: auto; /* Automatically respects original image proportions */
+      max-height: 140px; /* Limits tall/large files from overflowing */
+      object-fit: contain; /* Keeps the whole image visible without cropping */
       border-radius: 10px;
       border: 1px solid rgba(255, 255, 255, 0.15);
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
       flex-shrink: 0;
+      background: #000000; /* Optional backdrop for image letterboxing if needed */
     }
 
     footer {
@@ -243,17 +245,17 @@
       transition: all 0.3s ease;
     }
 
-    /* When gallery is open, compact top elements slightly to stay completely scrollbar-free */
+    /* Compact UI adaptation when gallery is open */
     .card.gallery-open .profile-pic {
-      width: clamp(50px, 12vh, 75px);
-      height: clamp(50px, 12vh, 75px);
-      margin-bottom: 4px;
+      width: clamp(45px, 10vh, 65px);
+      height: clamp(45px, 10vh, 65px);
+      margin-bottom: 2px;
     }
     .card.gallery-open h1 {
-      font-size: clamp(16px, 2.8vh, 20px);
+      font-size: clamp(15px, 2.5vh, 19px);
     }
     .card.gallery-open .username {
-      margin-bottom: 8px;
+      margin-bottom: 6px;
     }
     .card.gallery-open .social-links {
       gap: 6px;
@@ -262,10 +264,10 @@
     /* Extra tight layout for low-height screen viewports */
     @media (max-height: 580px) {
       .card {
-        padding: 14px;
+        padding: 12px;
       }
       .gallery-box.expanded {
-        max-height: 130px;
+        max-height: 120px;
       }
     }
   </style>
@@ -314,10 +316,11 @@
         </button>
 
         <div class="gallery-box" id="galleryBox">
-          <!-- CHANGE OR ADD YOUR LANDSCAPE IMAGES HERE -->
+          <!-- AUTO-FIT LANDSCAPE IMAGES -->
           <img src="image1.jpg" alt="Gallery Image 1" class="landscape-img">
           <img src="image2.jpg" alt="Gallery Image 2" class="landscape-img">
           <img src="image3.jpg" alt="Gallery Image 3" class="landscape-img">
+          <img src="image4.jpg" alt="Gallery Image 4" class="landscape-img">
         </div>
       </div>
 
@@ -341,10 +344,8 @@
       const isExpanded = galleryBox.classList.contains('expanded');
       
       if (isExpanded) {
-        arrowIcon.style.transform = 'rotate(180deg)';
         toggleBtn.innerHTML = 'Hide Images <span id="arrowIcon" style="transform: rotate(180deg); display: inline-block;">▲</span>';
       } else {
-        arrowIcon.style.transform = 'rotate(0deg)';
         toggleBtn.innerHTML = 'View Images <span id="arrowIcon" style="transform: rotate(0deg); display: inline-block;">▼</span>';
       }
     }
