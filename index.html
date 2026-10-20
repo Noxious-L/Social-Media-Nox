@@ -23,14 +23,51 @@
       overflow: hidden; /* Prevents scrollbars completely */
     }
 
+    /* Default Dark Theme Variables */
+    :root {
+      --bg-color: #08080a;
+      --card-bg: #121216;
+      --text-main: #ffffff;
+      --text-sub: #9494a0;
+      --footer-color: #666670;
+      --btn-bg: #1d1d24;
+      --btn-border: rgba(255, 255, 255, 0.08);
+      --neon-gradient: linear-gradient(135deg, #00f2fe, #4facfe, #00f2fe, #6b11ff);
+      --neon-shadow: 0 0 25px rgba(0, 242, 254, 0.35), 0 0 50px rgba(107, 17, 255, 0.25);
+      --gallery-bg: rgba(29, 29, 36, 0.6);
+      --gallery-border: rgba(255, 255, 255, 0.05);
+      --profile-border: rgba(255, 255, 255, 0.8);
+      --profile-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+      --view-images-color: #00f2fe;
+    }
+
+    /* Light Theme Variables (Pure White Page, Grey Card BG) */
+    body.light-mode {
+      --bg-color: #FFFFFF; /* Pure white main background */
+      --card-bg: #E2E8F0; /* Clean grey card background */
+      --text-main: #000000; /* Pure black / near black primary text */
+      --text-sub: #4A4A4A; /* Medium gray secondary text */
+      --footer-color: #9E9E9E; /* Placeholder / footer text */
+      --btn-bg: #CBD5E1; /* Light gray fill for buttons */
+      --btn-border: rgba(0, 0, 0, 0.1);
+      --neon-gradient: linear-gradient(135deg, #00E5FF, #39FF14, #00E5FF, #39FF14); /* Animated Cyan to Green gradient */
+      --neon-shadow: 0 10px 30px rgba(0, 229, 255, 0.25), 0 0 20px rgba(57, 255, 20, 0.2);
+      --gallery-bg: rgba(203, 213, 225, 0.9);
+      --gallery-border: rgba(0, 0, 0, 0.08);
+      --profile-border: #00E5FF; /* Thin neon cyan profile ring */
+      --profile-shadow: 0 0 15px rgba(0, 229, 255, 0.5); /* Light glow */
+      --view-images-color: #FF2D95; /* Neon pink for View Images */
+    }
+
     body {
       display: flex;
       justify-content: center;
       align-items: center;
       padding: 16px;
       font-family: 'Inter', sans-serif;
-      background: #08080a;
-      color: #ffffff;
+      background: var(--bg-color);
+      color: var(--text-main);
+      transition: background-color 0.4s ease, color 0.4s ease;
     }
 
     /* Animated Neon Card Wrapper */
@@ -40,26 +77,17 @@
       max-width: 420px;
       border-radius: 26px;
       padding: 2px;
-      background: linear-gradient(135deg, #00f2fe, #4facfe, #00f2fe, #6b11ff);
+      background: var(--neon-gradient);
       background-size: 300% 300%;
       animation: neonGlow 6s ease infinite;
-      box-shadow: 0 0 25px rgba(0, 242, 254, 0.35),
-                  0 0 50px rgba(107, 17, 255, 0.25);
+      box-shadow: var(--neon-shadow);
+      transition: box-shadow 0.4s ease;
     }
 
     @keyframes neonGlow {
-      0% {
-        background-position: 0% 50%;
-        box-shadow: 0 0 25px rgba(0, 242, 254, 0.4), 0 0 50px rgba(79, 172, 254, 0.2);
-      }
-      50% {
-        background-position: 100% 50%;
-        box-shadow: 0 0 30px rgba(107, 17, 255, 0.5), 0 0 60px rgba(255, 0, 128, 0.3);
-      }
-      100% {
-        background-position: 0% 50%;
-        box-shadow: 0 0 25px rgba(0, 242, 254, 0.4), 0 0 50px rgba(79, 172, 254, 0.2);
-      }
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
     }
 
     .card {
@@ -68,12 +96,13 @@
       text-align: center;
       padding: 22px 18px;
       border-radius: 24px;
-      background: #121216;
+      background: var(--card-bg);
       
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
+      transition: background-color 0.4s ease;
     }
 
     .profile-pic {
@@ -81,25 +110,31 @@
       height: clamp(60px, 15vh, 95px);
       object-fit: cover;
       border-radius: 50%;
-      border: 2px solid rgba(255, 255, 255, 0.8);
-      box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+      border: 3px solid var(--profile-border);
+      box-shadow: var(--profile-shadow);
       margin-bottom: 8px;
       flex-shrink: 0;
-      transition: all 0.3s ease;
+      cursor: pointer;
+      transition: transform 0.2s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .profile-pic:hover {
+      transform: scale(1.05);
     }
 
     h1 {
       font-size: clamp(18px, 3.4vh, 24px);
       margin-bottom: 2px;
       letter-spacing: 0.5px;
-      transition: all 0.3s ease;
+      color: var(--text-main);
+      transition: color 0.4s ease;
     }
 
     .username {
-      color: #9494a0;
+      color: var(--text-sub);
       font-size: clamp(12px, 2.1vh, 14px);
       margin-bottom: 14px;
-      transition: all 0.3s ease;
+      transition: color 0.4s ease;
     }
 
     .social-links {
@@ -117,8 +152,8 @@
       width: 100%;
       padding: clamp(8px, 1.6vh, 12px) 16px;
       border-radius: 14px;
-      background: #1d1d24;
-      color: #ffffff;
+      background: var(--btn-bg);
+      color: var(--text-main);
       text-decoration: none;
       
       font-family: 'Bungee', cursive;
@@ -126,30 +161,34 @@
       letter-spacing: 1.5px;
       text-transform: uppercase;
       
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      border: 1px solid var(--btn-border);
+      transition: background-color 0.4s ease, border-color 0.4s ease, color 0.4s ease, transform 0.2s ease, box-shadow 0.2s ease;
     }
 
-    /* Brand Hover Effects */
-    .social-links a.facebook:hover {
-      background: #1877f2;
-      border-color: #1877f2;
-      box-shadow: 0 0 20px rgba(24, 119, 242, 0.5);
+    .social-links a:hover {
       transform: translateY(-2px) scale(1.02);
+    }
+
+    /* Brand Hover Effects with Cyan or Pink Glow on Press/Hover */
+    .social-links a.facebook:hover {
+      background: #1877f2 !important;
+      border-color: #1877f2 !important;
+      color: #ffffff !important;
+      box-shadow: 0 0 20px rgba(0, 229, 255, 0.5); /* Cyan glow */
     }
 
     .social-links a.instagram:hover {
-      background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
-      border-color: #dc2743;
-      box-shadow: 0 0 20px rgba(220, 39, 67, 0.5);
-      transform: translateY(-2px) scale(1.02);
+      background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888) !important;
+      border-color: #dc2743 !important;
+      color: #ffffff !important;
+      box-shadow: 0 0 20px rgba(255, 45, 149, 0.5); /* Pink glow */
     }
 
     .social-links a.tiktok:hover {
-      background: #000000;
-      border-color: #ff0050;
-      box-shadow: -3px 3px 18px rgba(255, 0, 80, 0.6), 3px -3px 18px rgba(0, 242, 234, 0.6);
-      transform: translateY(-2px) scale(1.02);
+      background: #000000 !important;
+      border-color: #ff0050 !important;
+      color: #ffffff !important;
+      box-shadow: -3px 3px 18px rgba(255, 45, 149, 0.6), 3px -3px 18px rgba(0, 229, 255, 0.6); /* Cyan & Pink glow */
     }
 
     /* Interactive Dropdown Image Gallery Container */
@@ -165,7 +204,7 @@
     .view-images-btn {
       background: none;
       border: none;
-      color: #00f2fe;
+      color: var(--view-images-color);
       font-family: 'Inter', sans-serif;
       font-size: 13px;
       font-weight: 600;
@@ -174,11 +213,10 @@
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      transition: color 0.2s ease, transform 0.2s ease;
+      transition: color 0.4s ease, transform 0.2s ease;
     }
 
     .view-images-btn:hover {
-      color: #4facfe;
       transform: translateY(-1px);
     }
 
@@ -191,53 +229,46 @@
       display: flex;
       flex-direction: column;
       gap: 10px;
-      transition: max-height 0.35s ease-in-out, padding 0.35s ease-in-out;
+      transition: max-height 0.35s ease-in-out, padding 0.35s ease-in-out, background-color 0.4s ease;
       padding: 0 4px;
       border-radius: 12px;
       scrollbar-width: thin;
-      scrollbar-color: #4facfe #1d1d24;
+      scrollbar-color: var(--view-images-color) var(--btn-bg);
     }
 
-    /* Active state when expanded */
     .gallery-box.expanded {
       max-height: 190px;
       padding: 8px 4px;
       margin-top: 8px;
-      background: rgba(29, 29, 36, 0.6);
-      border: 1px solid rgba(255, 255, 255, 0.05);
+      background: var(--gallery-bg);
+      border: 1px solid var(--gallery-border);
     }
 
-    /* Custom Scrollbar for Gallery */
     .gallery-box::-webkit-scrollbar {
       width: 5px;
     }
-    .gallery-box::-webkit-scrollbar-track {
-      background: #121216;
-      border-radius: 10px;
-    }
     .gallery-box::-webkit-scrollbar-thumb {
-      background: #4facfe;
+      background: var(--view-images-color);
       border-radius: 10px;
     }
 
-    /* Auto-Fit Landscape Image Styling with Tap Indicator */
     .landscape-img {
       width: 100%;
       height: auto;
       max-height: 140px;
       object-fit: contain;
       border-radius: 10px;
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+      border: 1px solid var(--btn-border);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
       flex-shrink: 0;
       background: #000000;
-      cursor: pointer; /* Indicates tappable/clickable */
+      cursor: pointer;
       transition: transform 0.2s ease, border-color 0.2s ease;
     }
 
     .landscape-img:hover {
       transform: scale(1.02);
-      border-color: #00f2fe;
+      border-color: var(--view-images-color);
     }
 
     /* Fullscreen Image Preview Lightbox Overlay */
@@ -257,7 +288,7 @@
       pointer-events: none;
       transition: opacity 0.3s ease;
       padding: 20px;
-      cursor: pointer; /* Tap anywhere to close */
+      cursor: pointer;
     }
 
     .image-modal.active {
@@ -270,8 +301,8 @@
       max-height: 85vh;
       object-fit: contain;
       border-radius: 14px;
-      border: 2px solid rgba(0, 242, 254, 0.6);
-      box-shadow: 0 0 35px rgba(0, 242, 254, 0.5);
+      border: 2px solid #00E5FF;
+      box-shadow: 0 0 35px rgba(0, 229, 255, 0.5);
       transform: scale(0.9);
       transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
@@ -283,20 +314,19 @@
     .modal-close-hint {
       position: absolute;
       bottom: 25px;
-      color: #a7a7b0;
+      color: #ffffff;
       font-size: 13px;
-      letter-spacing: 0.5px;
-      background: rgba(24, 24, 29, 0.8);
+      background: rgba(0, 0, 0, 0.8);
       padding: 6px 16px;
       border-radius: 20px;
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
     }
 
     footer {
       margin-top: 12px;
-      color: #666670;
+      color: var(--footer-color);
       font-size: 11px;
-      transition: all 0.3s ease;
+      transition: color 0.4s ease;
     }
 
     /* Compact UI adaptation when gallery is open */
@@ -315,14 +345,9 @@
       gap: 6px;
     }
 
-    /* Extra tight layout for low-height screen viewports */
     @media (max-height: 580px) {
-      .card {
-        padding: 12px;
-      }
-      .gallery-box.expanded {
-        max-height: 120px;
-      }
+      .card { padding: 12px; }
+      .gallery-box.expanded { max-height: 120px; }
     }
   </style>
 </head>
@@ -333,11 +358,14 @@
   <div class="card-wrapper">
     <main class="card" id="mainCard">
 
-      <!-- PROFILE PICTURE -->
+      <!-- PROFILE PICTURE (TAP TO SWITCH MODE & CHANGE PROFILE PHOTO) -->
       <img
         class="profile-pic"
+        id="profilePic"
         src="profile_id.jpg"
         alt="Profile Picture"
+        onclick="toggleDarkMode()"
+        title="Tap to switch Dark/Light Mode"
       >
 
       <!-- NAME -->
@@ -370,11 +398,74 @@
         </button>
 
         <div class="gallery-box" id="galleryBox">
-          <!-- TAP ANY IMAGE TO PREVIEW FULLSIZE -->
           <img src="image1.jpg" alt="Gallery Image 1" class="landscape-img" onclick="openPreview(this)">
           <img src="image2.jpg" alt="Gallery Image 2" class="landscape-img" onclick="openPreview(this)">
           <img src="image3.jpg" alt="Gallery Image 3" class="landscape-img" onclick="openPreview(this)">
           <img src="image4.jpg" alt="Gallery Image 4" class="landscape-img" onclick="openPreview(this)">
+        </div>
+      </div>
+
+      <footer>
+        © 2026 Nox
+      </footer>
+
+    </main>
+  </div>
+
+  <!-- FULLSCREEN IMAGE PREVIEW LIGHTBOX OVERLAY -->
+  <div class="image-modal" id="imageModal" onclick="closePreview()">
+    <img id="modalImg" src="" alt="Full Preview">
+    <div class="modal-close-hint">Tap anywhere to close</div>
+  </div>
+
+  <script>
+    // Toggle Dark/Light Theme & Swap Profile Image Source
+    function toggleDarkMode() {
+      const isLight = document.body.classList.toggle('light-mode');
+      const profilePic = document.getElementById('profilePic');
+
+      if (isLight) {
+        profilePic.src = 'profile_id_light.jpg'; // Light mode image file
+      } else {
+        profilePic.src = 'profile_id.jpg'; // Dark mode image file
+      }
+    }
+
+    // Toggle Image Gallery Dropdown
+    function toggleGallery() {
+      const galleryBox = document.getElementById('galleryBox');
+      const mainCard = document.getElementById('mainCard');
+      const toggleBtn = document.getElementById('toggleGalleryBtn');
+
+      galleryBox.classList.toggle('expanded');
+      mainCard.classList.toggle('gallery-open');
+
+      const isExpanded = galleryBox.classList.contains('expanded');
+      
+      if (isExpanded) {
+        toggleBtn.innerHTML = 'Hide Images <span style="transform: rotate(180deg); display: inline-block;">▲</span>';
+      } else {
+        toggleBtn.innerHTML = 'View Images <span style="transform: rotate(0deg); display: inline-block;">▼</span>';
+      }
+    }
+
+    // Image Lightbox Preview Functions
+    function openPreview(imgElement) {
+      const modal = document.getElementById('imageModal');
+      const modalImg = document.getElementById('modalImg');
+      modalImg.src = imgElement.src;
+      modal.classList.add('active');
+    }
+
+    function closePreview() {
+      const modal = document.getElementById('imageModal');
+      modal.classList.remove('active');
+    }
+  </script>
+
+</body>
+</html>
+g" onclick="openPreview(this)">
         </div>
       </div>
 
