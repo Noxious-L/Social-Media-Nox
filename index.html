@@ -182,11 +182,6 @@
       transform: translateY(-1px);
     }
 
-    .view-images-btn span {
-      font-size: 10px;
-      transition: transform 0.3s ease;
-    }
-
     /* Collapsible Gallery Box */
     .gallery-box {
       width: 100%;
@@ -225,17 +220,76 @@
       border-radius: 10px;
     }
 
-    /* Auto-Fit Landscape Image Styling */
+    /* Auto-Fit Landscape Image Styling with Tap Indicator */
     .landscape-img {
       width: 100%;
-      height: auto; /* Automatically respects original image proportions */
-      max-height: 140px; /* Limits tall/large files from overflowing */
-      object-fit: contain; /* Keeps the whole image visible without cropping */
+      height: auto;
+      max-height: 140px;
+      object-fit: contain;
       border-radius: 10px;
       border: 1px solid rgba(255, 255, 255, 0.15);
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
       flex-shrink: 0;
-      background: #000000; /* Optional backdrop for image letterboxing if needed */
+      background: #000000;
+      cursor: pointer; /* Indicates tappable/clickable */
+      transition: transform 0.2s ease, border-color 0.2s ease;
+    }
+
+    .landscape-img:hover {
+      transform: scale(1.02);
+      border-color: #00f2fe;
+    }
+
+    /* Fullscreen Image Preview Lightbox Overlay */
+    .image-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.88);
+      backdrop-filter: blur(8px);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+      padding: 20px;
+      cursor: pointer; /* Tap anywhere to close */
+    }
+
+    .image-modal.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .image-modal img {
+      max-width: 92%;
+      max-height: 85vh;
+      object-fit: contain;
+      border-radius: 14px;
+      border: 2px solid rgba(0, 242, 254, 0.6);
+      box-shadow: 0 0 35px rgba(0, 242, 254, 0.5);
+      transform: scale(0.9);
+      transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .image-modal.active img {
+      transform: scale(1);
+    }
+
+    .modal-close-hint {
+      position: absolute;
+      bottom: 25px;
+      color: #a7a7b0;
+      font-size: 13px;
+      letter-spacing: 0.5px;
+      background: rgba(24, 24, 29, 0.8);
+      padding: 6px 16px;
+      border-radius: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
     }
 
     footer {
@@ -316,10 +370,11 @@
         </button>
 
         <div class="gallery-box" id="galleryBox">
-          <!-- AUTO-FIT LANDSCAPE IMAGES -->
-          <img src="image1.jpg" alt="Gallery Image 1" class="landscape-img">
-          <img src="image2.jpg" alt="Gallery Image 2" class="landscape-img">
-          <img src="image3.jpg" alt="Gallery Image 3" class="landscape-img">
+          <!-- TAP ANY IMAGE TO PREVIEW FULLSIZE -->
+          <img src="image1.jpg" alt="Gallery Image 1" class="landscape-img" onclick="openPreview(this)">
+          <img src="image2.jpg" alt="Gallery Image 2" class="landscape-img" onclick="openPreview(this)">
+          <img src="image3.jpg" alt="Gallery Image 3" class="landscape-img" onclick="openPreview(this)">
+          <img src="image4.jpg" alt="Gallery Image 4" class="landscape-img" onclick="openPreview(this)">
         </div>
       </div>
 
@@ -330,10 +385,15 @@
     </main>
   </div>
 
+  <!-- FULLSCREEN IMAGE PREVIEW LIGHTBOX OVERLAY -->
+  <div class="image-modal" id="imageModal" onclick="closePreview()">
+    <img id="modalImg" src="" alt="Full Preview">
+    <div class="modal-close-hint">Tap anywhere to close</div>
+  </div>
+
   <script>
     function toggleGallery() {
       const galleryBox = document.getElementById('galleryBox');
-      const arrowIcon = document.getElementById('arrowIcon');
       const mainCard = document.getElementById('mainCard');
       const toggleBtn = document.getElementById('toggleGalleryBtn');
 
@@ -343,10 +403,22 @@
       const isExpanded = galleryBox.classList.contains('expanded');
       
       if (isExpanded) {
-        toggleBtn.innerHTML = 'Hide Images <span id="arrowIcon" style="transform: rotate(180deg); display: inline-block;">▲</span>';
+        toggleBtn.innerHTML = 'Hide Images <span style="transform: rotate(180deg); display: inline-block;">▲</span>';
       } else {
-        toggleBtn.innerHTML = 'View Images <span id="arrowIcon" style="transform: rotate(0deg); display: inline-block;">▼</span>';
+        toggleBtn.innerHTML = 'View Images <span style="transform: rotate(0deg); display: inline-block;">▼</span>';
       }
+    }
+
+    function openPreview(imgElement) {
+      const modal = document.getElementById('imageModal');
+      const modalImg = document.getElementById('modalImg');
+      modalImg.src = imgElement.src;
+      modal.classList.add('active');
+    }
+
+    function closePreview() {
+      const modal = document.getElementById('imageModal');
+      modal.classList.remove('active');
     }
   </script>
 
