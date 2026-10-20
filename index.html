@@ -465,6 +465,117 @@
 
 </body>
 </html>
+n Wrapper -->
+  <div class="card-wrapper">
+    <main class="card" id="mainCard">
+
+      <!-- PROFILE PICTURE (TAP TO SWITCH MODE & CHANGE PROFILE PHOTO) -->
+      <img
+        class="profile-pic"
+        id="profilePic"
+        src="profile_id.jpg"
+        alt="Profile Picture"
+        onclick="toggleDarkMode()"
+        title="Tap to switch Dark/Light Mode"
+      >
+
+      <!-- NAME -->
+      <h1>Nox</h1>
+
+      <!-- USERNAME / BIO -->
+      <p class="username">BSIT 2A</p>
+
+      <!-- SOCIAL LINKS -->
+      <div class="social-links">
+
+        <a href="https://www.facebook.com/share/1BrXs4q9kU/" target="_blank" class="facebook">
+          Facebook
+        </a>
+
+        <a href="https://www.instagram.com/nox.lloyd?dlrf=MWdtejZpNDI5cHo5dA==" target="_blank" class="instagram">
+          Instagram
+        </a>
+
+        <a href="https://tiktok.com/@noxaintbored" target="_blank" class="tiktok">
+          TikTok
+        </a>
+
+      </div>
+
+      <!-- VIEW IMAGES DROPDOWN SECTION -->
+      <div class="image-dropdown-container">
+        <button class="view-images-btn" id="toggleGalleryBtn" onclick="toggleGallery()">
+          View Images <span id="arrowIcon">▼</span>
+        </button>
+
+        <div class="gallery-box" id="galleryBox">
+          <img src="image1.jpg" alt="Gallery Image 1" class="landscape-img" onclick="openPreview(this)">
+          <img src="image2.jpg" alt="Gallery Image 2" class="landscape-img" onclick="openPreview(this)">
+          <img src="image3.jpg" alt="Gallery Image 3" class="landscape-img" onclick="openPreview(this)">
+          <img src="image4.jpg" alt="Gallery Image 4" class="landscape-img" onclick="openPreview(this)">
+        </div>
+      </div>
+
+      <footer>
+        © 2026 Nox
+      </footer>
+
+    </main>
+  </div>
+
+  <!-- FULLSCREEN IMAGE PREVIEW LIGHTBOX OVERLAY -->
+  <div class="image-modal" id="imageModal" onclick="closePreview()">
+    <img id="modalImg" src="" alt="Full Preview">
+    <div class="modal-close-hint">Tap anywhere to close</div>
+  </div>
+
+  <script>
+    // Toggle Dark/Light Theme & Swap Profile Image Source
+    function toggleDarkMode() {
+      const isLight = document.body.classList.toggle('light-mode');
+      const profilePic = document.getElementById('profilePic');
+
+      if (isLight) {
+        profilePic.src = 'profile_id_light.jpg'; // Light mode image file
+      } else {
+        profilePic.src = 'profile_id.jpg'; // Dark mode image file
+      }
+    }
+
+    // Toggle Image Gallery Dropdown
+    function toggleGallery() {
+      const galleryBox = document.getElementById('galleryBox');
+      const mainCard = document.getElementById('mainCard');
+      const toggleBtn = document.getElementById('toggleGalleryBtn');
+
+      galleryBox.classList.toggle('expanded');
+      mainCard.classList.toggle('gallery-open');
+
+      const isExpanded = galleryBox.classList.contains('expanded');
+      
+      if (isExpanded) {
+        toggleBtn.innerHTML = 'Hide Images <span style="transform: rotate(180deg); display: inline-block;">▲</span>';
+      } else {
+        toggleBtn.innerHTML = 'View Images <span style="transform: rotate(0deg); display: inline-block;">▼</span>';
+      }
+    }
+
+    // Image Lightbox Preview Functions
+    function openPreview(imgElement) {
+      const modal = document.getElementById('imageModal');
+      const modalImg = document.getElementById('modalImg');
+      modalImg.src = imgElement.src;
+      modal.classList.add('active');
+    }
+
+    function closePreview() {
+      const modal = document.getElementById('imageModal');
+      modal.classList.remove('active');
+    }
+  </script>
+
+</body>
+</html>
 g" onclick="openPreview(this)">
         </div>
       </div>
